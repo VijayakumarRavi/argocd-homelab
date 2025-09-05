@@ -2,13 +2,13 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: cert-<path:cluster-secrets:cluster-secrets#domain>
+  name: cert-proxmox.vjlab.dev
   namespace: gateway
 spec:
   dnsNames:
-    - '*.<path:cluster-secrets:cluster-secrets#domain>'
-    - '<path:cluster-secrets:cluster-secrets#domain>'
+    - '*.proxmox.vjlab.dev'
+    - 'proxmox.vjlab.dev'
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-production
-  secretName: cert-<path:cluster-secrets:cluster-secrets#domain>
+  secretName: cert-proxmox.vjlab.dev

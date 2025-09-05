@@ -1,7 +1,6 @@
 version: '3'
 
 tasks:
-
   terraform_apply:
     desc: Apply Terraform
     silent: true
@@ -17,26 +16,15 @@ tasks:
   install:gateway_api_crds:
     desc: Install Gateway API CRDs
     silent: true
-    deps: [set_k8s_context]
+    #deps: [set_k8s_context]
     cmds:
-      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/standard/gateway.networking.k8s.io_gatewayclasses.yaml
-      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/standard/gateway.networking.k8s.io_gateways.yaml
-      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml
-      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml
-      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/standard/gateway.networking.k8s.io_grpcroutes.yaml
-      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/experimental/gateway.networking.k8s.io_tlsroutes.yaml
-      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.0/config/crd/experimental/gateway.networking.k8s.io_udproutes.yaml
-
-
-  install:cilium:
-    desc: Install Cilium
-    silent: true
-    cmds:
-      - |
-        helm repo add cilium https://helm.cilium.io/
-        helm repo update cilium
-        cilium_helm_release=$(yq '.spec.sources[0].targetRevision' ./argocd/aoa_apps/apps/networking/cilium.yaml)
-        helm template cilium cilium/cilium --version $cilium_helm_release --namespace kube-system --values ./argocd/aoa_apps/values/cilium.yaml | kubectl apply -f -
+      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.3.0/config/crd/standard/gateway.networking.k8s.io_gatewayclasses.yaml
+      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.3.0/config/crd/standard/gateway.networking.k8s.io_gateways.yaml
+      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.3.0/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml
+      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.3.0/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml
+      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.3.0/config/crd/standard/gateway.networking.k8s.io_grpcroutes.yaml
+      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.3.0/config/crd/experimental/gateway.networking.k8s.io_tlsroutes.yaml
+      - kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.3.0/config/crd/experimental/gateway.networking.k8s.io_udproutes.yaml
 
   install:argocd:
     desc: Install ArgoCD
@@ -47,7 +35,7 @@ tasks:
         kubectl config set-context --current --namespace=argocd
         helm repo add argo https://argoproj.github.io/argo-helm
         helm repo update argo
-        argo_helm_release=$(yq '.spec.sources[0].targetRevision' ./argocd/aoa_apps/apps/argocd.yaml)
+        argo_helm_release=$(yq -r '.spec.sources[0].targetRevision' ./argocd/aoa_apps/apps/argocd.yaml)
         helm template argocd argo/argo-cd --version $argo_helm_release --namespace argocd --values ./argocd/aoa_apps/values/argocd.yaml | kubectl apply -f -
 
   stage:onepassword_secrets:
@@ -117,7 +105,6 @@ tasks:
     silent: true
     cmds:
       - kubectl exec -n home-assistant -c codeserver $(kubectl get pod -n home-assistant -o jsonpath='{.items[0].metadata.name}') -- cat /home/coder/.config/code-server/config.yaml| grep '^password:' | awk '{print $2}'
-
 
   # argocd:login:
   #   desc: blah

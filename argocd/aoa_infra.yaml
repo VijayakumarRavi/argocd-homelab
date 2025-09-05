@@ -8,7 +8,7 @@ spec:
     namespace: argocd
   source:
     path: argocd/aoa_infra/apps
-    repoURL: https://github.com/joeypiccola/k8s_home.git
+    repoURL: https://github.com/VijayakumarRavi/argocd-homelab.git
     targetRevision: main
   project: default
   syncPolicy:

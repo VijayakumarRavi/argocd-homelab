@@ -5,13 +5,13 @@ metadata:
   name: cert-manager-objects
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "30"
+    argocd.argoproj.io/sync-wave: '30'
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://github.com/joeypiccola/k8s_home.git
+    repoURL: https://github.com/VijayakumarRavi/argocd-homelab.git
     path: argocd/aoa_apps/objects/cert-manager
     targetRevision: main
   destination:

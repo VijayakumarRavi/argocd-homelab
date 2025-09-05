@@ -4,17 +4,17 @@ metadata:
   name: argocd
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "20"
+    argocd.argoproj.io/sync-wave: '20'
 spec:
   project: default
   sources:
     - chart: argo-cd
       repoURL: https://argoproj.github.io/argo-helm
-      targetRevision: 8.3.4  # v3.0.6+db93798
+      targetRevision: 8.3.4 # v3.0.6+db93798
       helm:
         valueFiles:
-        - $values/argocd/aoa_apps/values/argocd.yaml
-    - repoURL: https://github.com/joeypiccola/k8s_home.git
+          - $values/argocd/aoa_apps/values/argocd.yaml
+    - repoURL: https://github.com/VijayakumarRavi/argocd-homelab.git
       targetRevision: main
       ref: values
   destination:
@@ -29,4 +29,4 @@ spec:
       - CreateNamespace=true
     managedNamespaceMetadata:
       labels:
-        goldilocks.fairwinds.com/enabled: "true"
+        goldilocks.fairwinds.com/enabled: 'true'

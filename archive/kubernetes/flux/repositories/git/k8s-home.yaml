@@ -8,4 +8,4 @@ spec:
   interval: 1m0s
   ref:
     branch: main
-  url: https://github.com/joeypiccola/k8s_home.git
+  url: https://github.com/VijayakumarRavi/argocd-homelab.git

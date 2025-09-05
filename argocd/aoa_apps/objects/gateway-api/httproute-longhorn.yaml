@@ -6,11 +6,11 @@ metadata:
   namespace: longhorn-system
 spec:
   hostnames:
-    - longhorn-k8s.<path:cluster-secrets:cluster-secrets#domain>
+    - longhorn-k8s.proxmox.vjlab.dev
   parentRefs:
-  - name: internal
-    namespace: gateway
+    - name: internal
+      namespace: gateway
   rules:
-  - backendRefs:
-    - name: longhorn-frontend
-      port: 80
+    - backendRefs:
+        - name: longhorn-frontend
+          port: 80

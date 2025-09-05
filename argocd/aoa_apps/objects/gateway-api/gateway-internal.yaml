@@ -15,25 +15,25 @@ spec:
     - protocol: HTTPS
       port: 443
       name: https-gateway
-      hostname: '*.piccola.us'
+      hostname: '*.proxmox.vjlab.dev'
       allowedRoutes:
         namespaces:
           from: All
       tls:
         certificateRefs:
           - kind: Secret
-            name: cert-piccola.us
+            name: cert-proxmox.vjlab.dev
     - protocol: HTTPS
       port: 443
       name: https-domain-gateway
-      hostname: 'piccola.us'
+      hostname: 'proxmox.vjlab.dev'
       allowedRoutes:
         namespaces:
           from: All
       tls:
         certificateRefs:
           - kind: Secret
-            name: cert-piccola.us
+            name: cert-proxmox.vjlab.dev
 
 ---
 apiVersion: v1
@@ -44,7 +44,5 @@ metadata:
     io.cilium.gateway/owning-gateway: internal
   name: cilium-gateway-internal
   namespace: gateway
-  annotations:
-    io.cilium/lb-ipam-ips: 10.0.5.209
 spec:
   type: LoadBalancer

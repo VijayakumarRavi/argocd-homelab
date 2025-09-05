@@ -5,8 +5,8 @@ metadata:
   name: letsencrypt-production
 spec:
   acme:
-    email: <path:cluster-secrets:cluster-secrets#personalemail> # path:namespace:secret-name#key
-    preferredChain: ""
+    email: im@vjlab.dev
+    preferredChain: ''
     privateKeySecretRef:
       name: letsencrypt-production
     server: https://acme-v02.api.letsencrypt.org/directory
@@ -24,8 +24,8 @@ metadata:
   name: letsencrypt-staging
 spec:
   acme:
-    email: <path:cluster-secrets:cluster-secrets#personalemail> # path:namespace:secret-name#key
-    preferredChain: ""
+    email: im@vjlab.dev
+    preferredChain: ''
     privateKeySecretRef:
       name: letsencrypt-staging
     server: https://acme-staging-v02.api.letsencrypt.org/directory
